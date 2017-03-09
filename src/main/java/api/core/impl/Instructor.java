@@ -10,21 +10,23 @@ public class Instructor implements IInstructor {
     @Override
     public void addHomework(String instructorName, String className, int year, String homeworkName, String homeworkDescription) {
         Course course = DataManager.findCourse(className, year);
-        if (course != null) {
-            course.addHomework(new Homework(homeworkName, homeworkDescription));
-        }
+        if (course == null) return;
+        if (!DataManager.courseInstructors.get(course).equals(instructorName)) return;
+        course.addHomework(new Homework(homeworkName, homeworkDescription));
     }
 
     @Override
     public void assignGrade(String instructorName, String className, int year, String homeworkName, String studentName, int grade) {
-        Enrollee enrollee = DataManager.findStudent(studentName);
+        if (grade < 0) return;
         Course course = DataManager.findCourse(className, year);
-        if (enrollee != null && course != null) {
-            Homework homework = course.getHomework(homeworkName);
-            if (homework != null) {
-                homework.gradeStudent(enrollee, grade);
-            }
-        }
+        if (course == null) return;
+        Enrollee enrollee = DataManager.findStudent(studentName);
+        if (enrollee == null) return;
+        Homework homework = course.getHomework(homeworkName);
+        if (homework == null) return;
+        String submission = homework.getSubmission(enrollee);
+        if (submission == null) return;
+        homework.gradeStudent(enrollee, grade);
     }
 
     @Override

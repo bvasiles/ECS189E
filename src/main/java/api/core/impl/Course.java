@@ -31,6 +31,9 @@ class Course {
     public int getCapacity() {
         return this.capacity;
     }
+    public int getYear() {
+        return this.year;
+    }
 
     protected void addStudent(Enrollee enrollee) {
         this.enrollees.add(enrollee);
