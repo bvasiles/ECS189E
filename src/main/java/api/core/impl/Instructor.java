@@ -39,11 +39,11 @@ public class Instructor implements IInstructor {
     @Override
     public Integer getGrade(String className, int year, String homeworkName, String studentName) {
         Course course = DataManager.findCourse(className, year);
+        if (course == null) return null;
         Enrollee student = DataManager.findStudent(studentName);
-        if (course == null || student == null) return null;
+        if (student == null) return null;
         Homework hw = course.getHomework(homeworkName);
         if (hw == null) return null;
-        Integer grade = hw.getGrade(student);
-        return grade;
+        return hw.getGrade(student);
     }
 }

@@ -47,7 +47,6 @@ public class Student implements IStudent {
     public boolean isRegisteredFor(String studentName, String className, int year) {
         Enrollee enrollee = DataManager.findStudent(studentName);
         Course course = DataManager.findCourse(className, year);
-        System.out.println(course.getEnrollees());
         if (course != null && enrollee != null) {
             return course.getEnrollees().contains(enrollee);
         }

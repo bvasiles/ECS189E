@@ -48,7 +48,7 @@ public class Admin implements IAdmin {
     @Override
     public int getClassCapacity(String className, int year) {
         Course course = DataManager.findCourse(className, year);
-        if (course == null) return -1;
+        if (course == null) return 0;
         return course.getCapacity();
     }
 }
